@@ -30,10 +30,32 @@ class RealizarPedidoViewController: UIViewController {
         if pedido == "comida" {
             let pedido_agregado = ["nombre" : comida.Nombre, "precio" : comida.Precio, "tiempo": comida.Tiempo] as [String : Any]
             Database.database().reference().child("clientes").child(usuario_correo).child("pedidos").childByAutoId().setValue(pedido_agregado)
+            
+            let alertaVC = UIAlertController(title: "Pedido realizado", message: "Acaba de pedir un \(comida.Nombre)", preferredStyle: .alert)
+            let okAccion = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            let salirAccion = UIAlertAction(title: "Regresar al inicio", style: .default, handler: {(action) in
+                self.dismiss(animated: true)
+            })
+            alertaVC.addAction(salirAccion)
+            alertaVC.addAction(okAccion)
+        
+            self.present(alertaVC, animated: true, completion: nil)
+            
+            
         }
         if pedido == "bebida" {
             let pedido_agregado = ["nombre" : bebida.Nombre, "precio" : bebida.Precio, "tiempo": bebida.Tiempo] as [String : Any]
             Database.database().reference().child("clientes").child(usuario_correo).child("pedidos").childByAutoId().setValue(pedido_agregado)
+            let alertaVC = UIAlertController(title: "Pedido realizado", message: "Acaba de pedir un \(bebida.Nombre)", preferredStyle: .alert)
+            let okAccion = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            let salirAccion = UIAlertAction(title: "Regresar al inicio", style: .default, handler: {(action) in
+                self.dismiss(animated: true)
+            })
+            alertaVC.addAction(salirAccion)
+            alertaVC.addAction(okAccion)
+        
+            self.present(alertaVC, animated: true, completion: nil)
+            
         }
     }
     

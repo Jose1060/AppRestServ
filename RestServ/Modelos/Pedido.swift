@@ -9,4 +9,5 @@ import Foundation
 class Pedido{
     var ID = ""
     var Nombre = ""
+    var Precio = 0.0
 }

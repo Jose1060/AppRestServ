@@ -37,10 +37,15 @@ class CatBebidaViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let celda = UITableViewCell()
+        let celda = tableView.dequeueReusableCell(withIdentifier: "bebidaCelda", for: indexPath)
         let bebida = bebidas[indexPath.row]
         celda.textLabel?.text = bebida.Nombre
+        celda.detailTextLabel?.text = "S/. " + String(bebida.Precio)
+        
+        celda.imageView?.sd_setImage(with: URL(string: bebida.Imagen), placeholderImage: UIImage(named: "pastel"), completed : nil)
+
         return celda
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

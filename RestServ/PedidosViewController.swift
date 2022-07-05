@@ -32,6 +32,7 @@ class PedidosViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let pedido = Pedido()
             pedido.ID = snapshot.key
             pedido.Nombre = (snapshot.value as! NSDictionary)["nombre"] as! String
+            pedido.Precio = (snapshot.value as! NSDictionary)["precio"] as! Double
             self.pedidos.append(pedido)
             self.listaPedidos.reloadData()
             })
@@ -59,15 +60,18 @@ class PedidosViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let celda = UITableViewCell()
-        if pedidos.count == 0 {
-            celda.textLabel?.text = "No se tiene ningun pedido"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "pedidoCelda", for: indexPath)
+        if (pedidos.count == 0){
+            cell.textLabel?.text = "No hay pedido 🥲"
+            return cell
+        }else{
+            
+            let pedido = pedidos[indexPath.row]
+            cell.textLabel?.text = pedido.Nombre
+            cell.detailTextLabel?.text = "S/. " + String(pedido.Precio)
+            
+            return cell
         }
-        else {
-            let pedido = pedidos[indexPath.row].Nombre
-            celda.textLabel?.text = "\(pedido)"
-        }
-        return celda
     }
 
     @IBAction func btnCerrarSesion(_ sender: Any) {
